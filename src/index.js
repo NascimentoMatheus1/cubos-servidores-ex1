@@ -16,10 +16,19 @@ app.get('/', (req, res) => {
     res.send(carros)
 }); 
 
-app.get('/listagem/:marca', (req, res) => {
-    const { marca } = req.params;
-    const filtradosPorMarca = carros.filter((carros) =>  carros.marca === marca);
-    res.send(filtradosPorMarca);
+app.get('/listagem/', (req, res) => {
+    const { marca, cor } = req.query;
+    let resultado = "nenhum filtro utilizado";
+    
+    if(marca && cor){
+        resultado = carros.filter((carro) =>  carro.marca === marca && carro.cor === cor);
+    }else if(marca){
+        resultado = carros.filter((carro) =>  carro.marca === marca);
+    }else if(cor){
+        resultado = carros.filter((carro) =>  carro.cor === cor);
+    }
+    
+    res.send(resultado);
 }); 
 
 app.listen(3000);
