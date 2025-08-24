@@ -7,7 +7,7 @@ const express = require('express');
 
 const app = express();
 
-app.get('/', controladorGeral); 
+app.get('/listagem/:id', controladorGeral); 
 
 app.get('/listagem/', controladorFiltrarCarros); 
 

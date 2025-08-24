@@ -2,7 +2,7 @@ const carros = require('../bancoDeDados');
 
 const controladorFiltrarCarros = (req, res) => {
     const { marca, cor } = req.query;
-    let resultado = "nenhum filtro utilizado";
+    let resultado = carros;
     
     if(marca && cor){
         resultado = carros.filter((carro) =>  carro.marca === marca && carro.cor === cor);
@@ -16,7 +16,12 @@ const controladorFiltrarCarros = (req, res) => {
 }
 
 const controladorGeral = (req, res) => {
-    res.send(carros)
+    const { id } = req.params;
+    let resultado = carros;
+    if(id){
+        resultado = carros.find((carro) => { return carro.id === Number(id) });
+    }
+    res.send(resultado);
 }
 
 module.exports = { controladorFiltrarCarros, controladorGeral }
